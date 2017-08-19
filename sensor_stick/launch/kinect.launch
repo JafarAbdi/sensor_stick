@@ -1,0 +1,16 @@
+<launch>
+    <!-- -->
+	<include file="$(find freenect_launch)/launch/examples/freenect-registered-xyzrgb.launch"/>
+    <!-- -->
+	<node name="kinect_aux_node" pkg="kinect_aux" type="kinect_aux_node"/>
+	<!-- launch rviz-->
+  	<node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false"
+    	output="screen" args="-d $(find sensor_stick)/config/kinect.rviz"/>
+    <!-- -->
+    <node name="tilt_tf" pkg="sensor_stick" type="tilt_tf.py"/>
+    <!-- -->
+    <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure"/>
+    <!-- cloud transformer-->
+    <node name="cloud_transformer" pkg="sensor_stick" type="cloud_transformer" respawn="false"/>
+
+</launch>
